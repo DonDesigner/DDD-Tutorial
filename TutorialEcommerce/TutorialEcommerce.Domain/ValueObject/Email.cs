@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using TutorialEcommerce.Helpers;
 
 namespace TutorialEcommerce.Domain.ValueObject
@@ -22,9 +19,20 @@ namespace TutorialEcommerce.Domain.ValueObject
         public Email(string endereco)
         {
             Guard.ForNullOrEmptyDefaultMessage(endereco, "E-mail");
-            Guard.StringLength("E-mail". en)
+            Guard.StringLength("E-mail", endereco, EnderecoMaxLengtn);
+
+            if(IsValid(endereco) == false)
+                           throw new Exception("E-mail inválido");
+
+            Endereco = endereco;
 
                 
+        }
+
+        public static bool IsValid(string email)
+        {
+            var regexEmail = new Regex(@"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
+            return regexEmail.IsMatch(email);
         }
 
     }
