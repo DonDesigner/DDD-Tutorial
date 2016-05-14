@@ -42,6 +42,7 @@ namespace TutorialEcommerce.Helpers
                 throw new Exception(msgError);
         }
 
+        //TODO: Conferir para ver se tem ou não a assinatura messagem
         public static void StringLength(string propName, string stringValue, int maximum)
         {
             StringLength(stringValue, maximum, propName + "não pode ter mais de que " + maximum + " caracteres");
@@ -56,7 +57,7 @@ namespace TutorialEcommerce.Helpers
             }
         }
 
-        public static void StringLength(string propName, string stringValue, int minimum, int maximum, string message)
+        public static void StringLength(string propName, string stringValue, int minimum, int maximum)
         {
             StringLength(stringValue, minimum, maximum, propName + "deve ter de " + minimum + " à " + maximum + " caracteres!");
         }
