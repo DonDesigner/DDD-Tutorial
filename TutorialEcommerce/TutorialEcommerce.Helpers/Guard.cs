@@ -17,6 +17,11 @@ namespace TutorialEcommerce.Helpers
                 throw new Exception(errorMessage);
         }
 
+        public static void ForValidId(string propName, int id)
+        {
+            ForValidId(id, propName + " id Inválido!");
+        }
+
         public static void ForValidId(int id, string errorMessage)
         {
             if (!(id > 0))
@@ -42,7 +47,6 @@ namespace TutorialEcommerce.Helpers
                 throw new Exception(msgError);
         }
 
-        //TODO: Conferir para ver se tem ou não a assinatura messagem
         public static void StringLength(string propName, string stringValue, int maximum)
         {
             StringLength(stringValue, maximum, propName + "não pode ter mais de que " + maximum + " caracteres");
@@ -70,7 +74,7 @@ namespace TutorialEcommerce.Helpers
             int length = stringValue.Length;
             if(length < mininum || length > maximum)
             {
-                throw new InvalidOperationException(message);
+                throw new Exception(message);
             }
         }
 
