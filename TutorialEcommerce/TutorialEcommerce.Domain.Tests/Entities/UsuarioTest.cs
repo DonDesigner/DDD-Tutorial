@@ -92,16 +92,15 @@ namespace TutorialEcommerce.Domain.Tests.Entities
         [ExpectedException(typeof(Exception))]
         public void Usuario_SetLogin_Max_Value()
         {
-            var login = "1234567890123456789012345678901";
-            new Usuario(login, Cpf, Email, Senha, SenhaConfirmacao);
+            usuario.SetLogin("1234567890123456789012345678901");
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void Usuario_SetSenha_Min_Value()
         {
-            var senha = "12345";
-            new Usuario(Login, Cpf, Email, senha, SenhaConfirmacao);
+            var senha1 = "12345";
+            new Usuario(Login, Cpf, Email, senha1, senha1);
         }
 
         [TestMethod]
@@ -110,6 +109,48 @@ namespace TutorialEcommerce.Domain.Tests.Entities
         {
             var senha = "1234567890123456789012345678901";
             new Usuario(Login, Cpf, Email, senha, SenhaConfirmacao);
+        }
+
+        [TestMethod]
+        public void AlterarSenha_Valida()
+        {
+            usuario.AlterarSenha("123456", "654321", "654321");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void AlterarSenha_Invalido()
+        {
+            usuario.AlterarSenha("123456", "654321", "654322");
+        }
+
+        [TestMethod]
+        public void AlterarSenha_Token_valido()
+        {
+            var t = usuario.GerarNovoTokenAlterarSenha();
+            usuario.AlterarSenha(t, "654321", "654321");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void AlterarSenha_Token_Invalido()
+        {
+            var t = Guid.NewGuid();
+            usuario.AlterarSenha(t, "654321", "654321");
+
+        }
+
+        [TestMethod]
+        public void ValidarSenha_Valido()
+        {
+            usuario.ValidarSenha("123456");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void ValidarSenha_Invalida()
+        {
+            usuario.ValidarSenha("");
         }
     }
 }
